@@ -23,12 +23,7 @@ class Solution {
             int y = 3*dp[j];
             int z = 5*dp[k];
             dp[a] = Math.min(x,Math.min(y,z));
-            if(x == y && y == z){
-                i++;
-                j++;
-                k++;
-            }
-            else if(dp[a] == x){
+            if(dp[a] == x){
                 if(x == y)  j++;
                 if(x == z)  k++;
                 i++;
