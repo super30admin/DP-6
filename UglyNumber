@@ -1,0 +1,38 @@
+/**********
+time O(n)
+Space O(n)
+Leetcode yes
+problem no
+
+basic idea behind the solution is that each ugly number will be minimum of previous ugly number multiplied by 2, 3 or 5.
+therefore we multiply individual previous ugly number for each multiplier with the corresponding multiplier and store the 
+minimum obtained in the result. Whichever multiplier gave the answer, we increment its pointer to point to the next 
+minimum ugly number.
+***********/
+
+
+class Solution {
+    public int nthUglyNumber(int n) {
+        
+        int i1=0,i2=0,i3=0;
+        
+        int[] result = new int[n];
+        result[0]= 1;
+        
+        for(int i=1;i<n;i++)
+        {
+            int min = Math.min(Math.min(result[i1]*2,result[i2]*3),result[i3]*5);
+            result[i]= min;
+            
+            if(min == result[i1]*2)
+                i1++;
+            if(min == result[i2]*3)
+                i2++;
+            if(min == result[i3]*5)
+                i3++;
+        }
+        
+        return result[n-1];
+        
+    }
+}
