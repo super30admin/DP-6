@@ -73,3 +73,49 @@ public:
         return s.substr(start, curr_len);
     }
 };
+/* Method 2 : from top left corner filling DP. 150ms solution */
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int idx = 0, idx1 = 0;
+        int len = s.size();
+        string result;
+        int curr_len = 0, new_len = 0;
+        int start = 0;
+        
+        /* base case */
+        if (len == 0) {
+            return result;
+        }
+        
+        bool dp[len][len];
+        
+        /* Initialize the array with false entries */
+        for (idx = 0; idx < len; idx++) {
+            for (idx1 = 0; idx1 < len; idx1++) {
+                dp[idx][idx1] = false;
+            }
+        }
+        /* Start from top left corner */
+        for (idx = 0; idx < len; idx++) {
+            for (idx1 = 0; idx1 <= idx; idx1++) {
+                /* If char match, then do the following */
+                if (s[idx] == s[idx1]) {
+                    /* If the substr under consideration is less than equal to 2 or 
+                    * the previous substring is palindrome then only make it true */
+                    if (idx - idx1 <= 2 || (dp[idx1 + 1][idx - 1]))
+                        dp[idx1][idx] = true;
+                
+                    if (dp[idx1][idx] == true) {
+                        new_len = idx - idx1 + 1;
+                        if (new_len > curr_len) {
+                            start = idx1;
+                            curr_len = new_len;
+                        }
+                    }
+                }
+            }
+        }
+        return s.substr(start, curr_len);
+    }
+};
