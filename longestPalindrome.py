@@ -26,3 +26,23 @@ class Solution:
         return s[start:end+1]
                 
         
+#Second approach using pointers, by expanding the substring
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        result = ""
+        
+        for i in range(len(s)):
+           
+            word1 = self.checkPalindrome(s, i, i)
+            word2 = self.checkPalindrome(s, i, i+1)
+            word1 = word1 if len(word1) >= len(word2) else word2 
+            result = word1 if len(word1) >= len(result) else result
+            
+        return result
+    
+    def checkPalindrome(self, s, l, r):
+       
+        while l>=0 and r<len(s) and s[l]==s[r]:
+            l -= 1
+            r += 1
+        return s[l+1:r]
