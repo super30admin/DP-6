@@ -27,6 +27,8 @@ class Solution:
                 
         
 #Second approach using pointers, by expanding the substring
+#TC:O(n^2)
+#SC:O(1)
 class Solution:
     def longestPalindrome(self, s: str) -> str:
         result = ""
