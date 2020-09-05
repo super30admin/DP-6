@@ -16,12 +16,12 @@ class Solution:
         lps_start, lps_end = 0, 0
         for i in range(len(s)):
             
-            # case 0
+            # case odd
             curr_start, curr_end = check_palindrome(i,i)
             if curr_end - curr_start >  lps_end - lps_start:
                 lps_start = curr_start
                 lps_end = curr_end
-            # case 1
+            # case even
             if i < len(s) -1:
                 curr_start, curr_end = check_palindrome(i, i+1)
                 if curr_end - curr_start >  lps_end - lps_start:
