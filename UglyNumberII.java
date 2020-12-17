@@ -1,91 +1,30 @@
-// Time Complexity : will update after class
-// Space Complexity :  
-// Did this code successfully run on Leetcode : TLE, 291/596 passed
+// Time Complexity : O(1690)
+// Space Complexity : O(1690) 
+// Did this code successfully run on Leetcode : yes
 
 // Your code here along with comments explaining your approach
-// keep a counter for number going from 2->infinity, if that is an ugly number, when counter reaches n return num
-// find if num is ugly by finding all prime factors, find all and add 2,3,5 to set, if set length is still 3 then ugly
-// can memorize previously computed prime factor results
+// use 3 pointers, produce multiples of 2,3,5 which ever is min put in next index, keep building till n and return
 
-class Solution {
+class Ugly {
+    public int[] nums = new int[1690];
+    Ugly() {
+      nums[0] = 1;
+      int ugly, i2 = 0, i3 = 0, i5 = 0;
+  
+      for(int i = 1; i < 1690; ++i) {
+        ugly = Math.min(Math.min(nums[i2] * 2, nums[i3] * 3), nums[i5] * 5);
+        nums[i] = ugly;
+  
+        if (ugly == nums[i2] * 2) ++i2;
+        if (ugly == nums[i3] * 3) ++i3;
+        if (ugly == nums[i5] * 5) ++i5;
+      }
+    }
+  }
+  
+  class Solution {
+    public static Ugly u = new Ugly();
     public int nthUglyNumber(int n) {
-        if(n==1)
-            return 1;
-        
-        int num = 2;
-        int counter = 1;
-        while(counter<n && num<Integer.MAX_VALUE){
-            if(isUglyNumber(num)){
-                counter++;
-            }
-            if(counter==n){
-                return num;
-            }
-            
-            num++;
-        }
-        
-        return -1;
+      return u.nums[n - 1];
     }
-    
-    private boolean isUglyNumber(int num){
-        Set<Integer> primeFactors = getPrimeFactors(num);
-        Set<Integer> expectedPrimeFactors = new HashSet<>(){
-            {
-                add(2);
-                add(3);
-                add(5);
-            }
-        };
-        
-        primeFactors.addAll(expectedPrimeFactors);
-        
-        if(primeFactors.size()==3){
-            return true;
-        }
-        
-        return false;
-    }
-    
-    Map<Integer, Set<Integer>> memo = new HashMap<>();
-    
-    private Set<Integer> getPrimeFactors(int num){
-        Set<Integer> primeFactors = new HashSet<>();
-        
-        if(num%2==0){
-            primeFactors.add(2);
-            while(num%2==0){
-                num /= 2;
-                
-                if(memo.containsKey(num)){
-                    primeFactors.addAll(memo.get(num));
-                    return primeFactors;
-                }
-            }            
-        }
-        
-        
-        int upperBound = (int) Math.sqrt(num);  
-        
-        for(int i=3; i<=upperBound; i+=2){
-            if(num%i==0){
-                primeFactors.add(i);
-                
-                num /= i;
-                while(num%i==0){
-                    num /= i;
-                    
-                    if(memo.containsKey(num)){
-                        primeFactors.addAll(memo.get(num));
-                        return primeFactors;
-                    }
-                }
-            }    
-        }
-        
-        if(num>2)
-            primeFactors.add(num);
-        
-        return primeFactors;
-    }
-}
+  }
