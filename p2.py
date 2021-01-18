@@ -60,7 +60,7 @@ class Solution:
         self.start = 0
         self.maxLen = 0
 
-    def getLongestFromMiddle(self, s: str, left: int, right: int) -> None:
+    def extendAroundIndex(self, s: str, left: int, right: int) -> None:
 
       
         while (left >= 0 and right < len(s) and s[left] == s[right]):
@@ -87,8 +87,8 @@ class Solution:
 
       
         for middle in range(len(s)):
-            self.getLongestFromMiddle(s, middle, middle)
-            self.getLongestFromMiddle(s, middle, middle + 1)
+            self. extendAroundIndex(s, middle, middle)
+            self. extendAroundIndex(s, middle, middle + 1)
 
        
         return s[self.start: self.start + self.maxLen]
