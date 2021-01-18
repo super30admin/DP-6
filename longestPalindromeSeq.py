@@ -1,6 +1,6 @@
 #Dp solution
 #Time: O(n^2)
-#Space: O(n^2)
+#Space: O(1)
 
 
 class Solution:
@@ -26,3 +26,30 @@ class Solution:
             right+=1
         
         return 
+#Dp solution
+#Time: O(n^2)
+#Space: O(n^2)
+
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        maxs = 1
+        start  = 0
+        end = 0
+        n = len(s)
+        if not s:
+            return s
+        if n < 2:
+            return s
+        dp = [[False for _  in range(n)] for _ in range(n)]
+        
+        for i in range(n):
+            for j in range(i):
+                if s[i] == s[j] and (i-j<=2 or dp[i-1][j+1]):
+                    dp[i][j] = True
+                    if maxs<i-j+1:
+                        maxs = i-j+1
+                        start = j
+                        end =  i
+                        
+        print(start,end)                
+        return s[start:end+1]
