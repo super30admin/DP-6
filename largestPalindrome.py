@@ -26,19 +26,23 @@ class Solution:
         
         n = len(s)
         str_idx = 0; end_idx = 0
-        maxLen = 0
+        maxLen = 0        
         
         for i in range(n):
-            if i < n - 1 and s[i] == s[i + 1]:
-                left = i; right = i + 1
-            else: left = i; right = i
-            
+            left = i; right = i
             while left >=0 and right < n and s[left] == s[right]:
                 left -= 1; right += 1
                 if maxLen < right - left - 1:
                     maxLen = right - left - 1
                     str_idx = left + 1
-                
+            if i < n - 1 and s[i] == s[i + 1]:
+                left = i; right = i + 1
+                while left >=0 and right < n and s[left] == s[right]:
+                    left -= 1; right += 1
+                    if maxLen < right - left - 1:
+                        maxLen = right - left - 1
+                        str_idx = left + 1
+                        
         return s[str_idx: str_idx + maxLen]
 
                     
