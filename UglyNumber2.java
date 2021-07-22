@@ -2,6 +2,9 @@ import java.util.*;
 
 public class UglyNumber2 {
 
+
+    //TC: O(NLogN) Using Priority Queue. Rearranging LogN and N times we are doing it.
+    //SC: O(N):
     public int nthUglyNumber(int n) {
         // Every number should be multiplication of a prime number.
         // In order to form the ugly number, Find all combination by multiply with a
