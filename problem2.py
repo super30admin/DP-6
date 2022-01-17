@@ -1,4 +1,4 @@
-#Time , space O(n**2)
+#Time O(n**2), space O(1)
 class Solution:
 
     m=start=end=0 
