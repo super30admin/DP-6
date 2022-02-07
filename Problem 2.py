@@ -55,6 +55,8 @@ class Solution(object):
  # DP Approach
 # Time: O(n*n)
 # Space: O(n*n)
+# Time: O(n*n)
+# Space: O(n*n)
 class Solution(object):
     def longestPalindrome(self, s):
         """
@@ -66,17 +68,13 @@ class Solution(object):
         ans = ''
         for i in range(len(s)):
             for j in range(i+1):
-                if s[i] != s[j]:
-                    dp[i][j] = False
-                else:
-                    if i-j <=2:
+                if s[i] == s[j]:
+                    if i-j <=2 or dp[i-1][j+1] == True:
                         dp[i][j] = True
-                    else:
-                        dp[i][j] = dp[i-1][j+1]
-                if dp[i][j] == True:
-                    if mx < i-j+1:
-                        mx = i-j+1
-                        ans = s[j:i+1]
+                        if mx < i-j+1:
+                            mx = i-j+1
+                            ans = s[j:i+1]
+
         #print(dp)
         #print(mx)
         return ans
