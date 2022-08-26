@@ -78,3 +78,58 @@ class Solution {
         return (int)curr;
     }
 }
+
+////****New Ugly Number****
+//Time Complexity:0(n)
+//Explanation: 
+//Space Complexity:o(1);
+//Leetcode runnable : Y;
+//Any doubts: N;
+
+class Solution {
+    public int nthUglyNumber(int n) {
+        if(n==1)
+        {
+            return n;
+        }
+        //Array for storing elements
+        int[] arr=new int[n];
+        //By default
+        arr[0]=1;
+        int idx=1;
+        //Three Pointers
+        int p2=0;
+        int p3=0;
+        int p5=0;
+        //Three Numbers
+        int n2=2;
+        int n3=3;
+        int n5=5;
+        
+       while(idx<n)
+       {
+           int min=Math.min(n2, Math.min(n3,n5));
+           arr[idx]=min;
+           idx++;
+           if(min==n2)
+           {
+               p2++;
+               n2=2*arr[p2];
+           }
+           if(min==n3)
+           {
+               p3++;
+               n3=3*arr[p3];
+           }
+           
+           if(min==n5)
+           {
+               p5++;
+               n5=5*arr[p5];
+           }
+       }
+        return arr[n-1];
+        
+        
+    }
+}
