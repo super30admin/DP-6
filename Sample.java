@@ -43,7 +43,8 @@ class Solution {
 }
 
 //****New Ugly Number****
-//Time Complexity:
+//Time Complexity:0(nlogn)
+//Explanation: we are going through all n numbers so, o(n) but as well using priority queue, hence 0(nlogn);
 //Space Complexity:
 //Leetcode runnable : Y;
 //Any doubts: N;
