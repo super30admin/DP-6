@@ -1,0 +1,20 @@
+from heapq import *
+class Solution:
+    def nthUglyNumber(self,n):
+        s = {1}
+        self.nums = []
+        heap = []
+        heappush(heap, 1)
+        for _ in range(n):
+            c = heappop(heap)
+            self.nums.append(c)
+            for i in [2, 3, 5]:
+                n = c * i
+                if n not in s:
+                    s.add(n)
+                    heappush(heap, n)
+        return self.nums[-1]
+    
+# Time Complexity: O(n)
+# Space Complexity: O(n)
+# Successfully implemented on Leetcode
