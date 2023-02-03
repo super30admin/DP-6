@@ -1,0 +1,32 @@
+//TimeComplexity.    nlogk
+//Spacecomplexity.   O(k)
+
+
+class Solution {
+    public int nthUglyNumber(int n) {
+        HashSet<Long> set = new HashSet<>();
+        
+        PriorityQueue<Long> pq = new PriorityQueue<>();
+        long curr = 1L;
+        pq.add(curr);
+        set.add(curr);
+        int[] primes = new int[] {2,3,5};
+        
+        
+        while(n > 0){
+            n--;
+            curr = pq.poll();
+            for(int i = 0 ; i < primes.length; i++){
+                
+                long val = curr * primes[i]; 
+                if(!set.contains(val)){
+                    pq.add(val);
+                    set.add(val);
+                }
+                
+            }
+            
+        }
+        return (int)curr;
+    }
+}
