@@ -1,7 +1,33 @@
 //https://leetcode.com/problems/longest-palindromic-substring
 //TC : O(n^2)
 //SC : O(n^2)
-
+//total - 3 solutions
+//optimal solution
+//TC:O(n)
+//SC : O(1)
+class Solution {
+    int start, end, n;
+    public String longestPalindrome(String s) {
+        n=s.length();
+        for(int i=0; i<n; i++){
+            extendaround(s,i,i,i);
+            if(i!=n-1 && s.charAt(i) == s.charAt(i+1)){
+                extendaround(s,i,i,i+1);
+            }
+        }
+        return s.substring(start,end+1);
+    }
+    private void extendaround(String s, int i, int left, int right){
+        while(left>=0 && right <n && s.charAt(left)==s.charAt(right)){
+            left--; right++;
+        }
+        
+        if(--right - ++left > end-start){
+            start = left;
+            end = right;
+        }
+    }
+}
 //dp [][] solution
 class Solution {
     public String longestPalindrome(String s) {
@@ -59,3 +85,5 @@ class Solution {
         return s.substring(start,end+1);
     }
 }
+
+
