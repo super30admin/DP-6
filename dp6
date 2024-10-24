@@ -1,0 +1,87 @@
+264. Ugly Number II
+//Tc=O(n)
+class Solution {
+    public int nthUglyNumber(int n) {
+        int[] result=new int[n];
+        int p2=0,p3=0,p5=0;
+        int n2=2,n3=3,n5=5;
+        result[0]=1;
+        for(int i=1;i<n;i++){
+            int min=Math.min(n2,Math.min(n3,n5));
+            result[i]=min;
+            if(n2==min){
+                p2++;
+                n2=2*result[p2];
+            }
+            if(n3==min){
+                p3++;
+                n3=3*result[p3];
+            }
+            if(n5==min){
+                p5++;
+                n5=5*result[p5];
+            }
+        }
+    return result[n-1];
+    }
+}
+
+
+
+// // //Brute force = TC=NlogN
+// class Solution {
+//     public int nthUglyNumber(int n) {
+//         int []results=new int[]{2,3,5};
+//         Set<Long>set=new HashSet<>();
+//         PriorityQueue<Long>pq=new PriorityQueue<>();
+//         set.add(1L);
+//         pq.add(1L);
+//         long uglyNum=0;
+//         int count=0;
+//         while(count!=n){
+//             uglyNum=pq.poll();
+//             count++;
+//             for(int res:results){
+//                 long newuglyNum=uglyNum*res;
+//                 if(!set.contains(newuglyNum)){
+//                     set.add(newuglyNum);
+//                     pq.add(newuglyNum);
+//                 }
+//             }
+//         }
+//     return (int)uglyNum;
+//     }
+// }
+
+
+
+5. Longest Palindromic Substring
+
+//TC=O(n)
+class Solution {
+    int start;
+    int end;
+    public String longestPalindrome(String s) {
+        for(int i=0;i<s.length();i++){
+            checkString(s,i,i);
+            if(i<s.length()-1 && s.charAt(i)==s.charAt(i+1)){
+                checkString(s,i,i+1);
+            }
+        }
+        return s.substring(start,end+1);  
+    }
+
+    private void checkString(String s,int left,int right){
+        while(left>=0 && right<s.length() && s.charAt(left)==s.charAt(right)){
+            left--;
+            right++;
+        }
+        left++;
+        right--;
+        if(right-left>end-start){
+            start=left;
+            end=right;
+        }
+
+    }
+}
