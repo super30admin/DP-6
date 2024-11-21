@@ -1,0 +1,143 @@
+/*
+Leetcode: unsuccessful.
+
+Approach:
+
+layout a matrix of s.len x s.len
+
+now, with i and j being index of s.
+
+when ever s.charAt(i) == s.charAt(j) mark this matrix cell as 1.
+
+maximum number of consecutive 1s would give you the maximum length.
+
+Challenge:
+
+Failed to count these consecutive 1s.
+
+*/
+
+class Solution {
+    public String longestPalindrome(String s) {
+        
+        
+        if(s.length()==0) return s;
+        int len=s.length();
+        int [][] dp = new int [s.length()][s.length()];
+        
+        for(int i=0;i<len;i++)
+        {
+            for(int j=0;j<len;j++)
+            {
+                if(s.charAt(i)==s.charAt(j))
+                {
+                    dp[i][j]=1;
+                }
+            }
+        }
+        
+         for(int i=0;i<len;i++)
+        {
+            for(int j=0;j<len;j++)
+            {
+                System.out.printf(" %d  ",dp[i][j]);
+            }
+             System.out.println();
+        }
+        
+        int count=0;
+        int max=0;
+        int index=0;
+        int lastindex=0;
+        int i=len-1;
+        int j=0;
+     //   for(int i=(len-1) && int j=0; i>=0 && j<len; i++ && j--)
+        while(i>=0)
+        {
+            int p=i;
+            int q=0;
+            count=0;
+            while(p>=0&&q<len)
+            {
+                
+                System.out.printf("counting     %d   %d  \n",p,q);
+                if(dp[p][q]==1)
+                {
+                    count++;
+                    lastindex=q;
+                }
+                 else{
+                    if(count>max)
+                    {
+                        max=count;
+                        index=lastindex;
+                        count=0;
+                    }
+                }
+                
+                p--;
+                q++;
+                
+                    
+            }
+            
+            if(count>max)
+            {
+                max=count;
+                index=lastindex;
+                System.out.printf(" this is max     %d \n",max);
+            }
+            
+            i--;
+          //  j++;
+        }
+        
+        
+        System.out.println(" ulti counting   ");
+        j=0;
+         while(j<len)
+        {
+            int p=len-1;
+            int q=j;
+            count=0;
+            while(p>=0&&q<len)
+            {
+                
+                System.out.printf("counting     %d   %d  \n",p,q);
+                if(dp[p][q]==1)
+                {
+                    count++;
+                    lastindex=q;
+                }
+                else{
+                    if(count>max)
+                    {
+                        max=count;
+                        index=lastindex;
+                        count=0;
+                        
+                    }
+                }
+                p--;
+                q++;
+                
+                    
+            }
+            
+            if(count>max)
+            {
+                max=count;
+                index=lastindex;
+                System.out.printf(" this is max     %d \n",max);
+            }
+            
+           // i--;
+            j++;
+        }
+        
+        
+        
+        return s.substring(index-max+1,index+1);
+        
+    }
+}
