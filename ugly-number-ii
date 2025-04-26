@@ -1,0 +1,67 @@
+// Time Complexity :O(nlogN)+O(nlogN)
+// Space Complexity :O(n)
+// Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :no
+// Your code here along with comments explaining your approach:
+
+class Solution {
+    public int nthUglyNumber(int n) {
+        int[] ugly = new int[n];
+        int p1 = 0, p2 = 0,  p3 = 0;
+        int n1 = 2, n2 = 3, n3 = 5;
+        ugly[0] = 1;
+        for (int i = 1; i < n; i++) {
+            int min = Math.min(n1, Math.min(n2, n3));
+            ugly[i] = min;
+            if (min == n1) {
+                p1++;
+                n1 =2* ugly[p1];
+            }
+            if (min == n2) {
+                p2++;
+                n2 =3* ugly[p2];
+            }
+            if (min == n3) {
+                p3++;
+                n3 =5* ugly[p3];
+
+            }
+        }
+
+        return ugly[n-1];
+    }
+}
+
+
+// Time Complexity :O(n)
+// Space Complexity :O(n)
+// Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :no
+// Your code here along with comments explaining your approach:
+
+class Solution {
+    public int nthUglyNumber(int n) {
+        int[] ugly = new int[n];
+        int p1 = 0, p2 = 0,  p3 = 0;//prime pointers
+        int n1 = 2, n2 = 3, n3 = 5;//prime factors
+        ugly[0] = 1;
+        for (int i = 1; i < n; i++) {
+            int min = Math.min(n1, Math.min(n2, n3));
+            ugly[i] = min;
+            if (min == n1) {//if we get min from p1
+                p1++;//increenting those pointer only
+                n1 =2* ugly[p1];
+            }
+            if (min == n2) {//if we get min from p2
+                p2++;
+                n2 =3* ugly[p2];
+            }
+            if (min == n3) {//if we get min from p3
+                p3++;
+                n3 =5* ugly[p3];
+            }
+        }
+
+        return ugly[n-1];
+    }
+}

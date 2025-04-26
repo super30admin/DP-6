@@ -1,0 +1,125 @@
+// Time Complexity :O(n*n)
+// Space Complexity :O(n*n)
+// Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :no
+// Your code here along with comments explaining your approach:brueteforce approach (dp) exploring all possibilities and avoiding rechecking subproblems by using dp
+
+class Solution {
+    public String longestPalindrome(String s) {
+        int n = s.length();
+        boolean[][] dp = new boolean[n][n];
+        dp[0][0] = true;
+        int start = 0;
+        int end = 0;
+        for (int i = 1; i < n; i++) {
+            for (int j = i; j >= 0; j--) {
+                char iChar = s.charAt(i);
+                char jChar = s.charAt(j);
+                if (iChar != jChar) { //if ith and jth char not equal simple false
+                    dp[i][j] = false;
+                } else {
+
+                    //i an djth char is euqal but need to check inner substring is palindrom or not from dp[i-1][j+1]
+                    if (i - j <= 2 || dp[i - 1][j + 1]) {
+                        dp[i][j] = true;
+                        if (i - j > end - start) {//if curr palindrom is greater length than prev length which we found earlier
+                            start = j;
+                            end = i;
+                        }
+                    } else { 
+                        dp[i][j] = false;
+                    }
+
+                }
+            }
+        }
+        String sub = s.substring(start, end + 1);
+        return sub;
+    }
+}
+
+
+
+
+
+
+
+// Time Complexity :O(n*n)
+// Space Complexity :O(n)
+// Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :no
+// Your code here along with comments explaining your approach:brueteforce approach (dp) exploring all possibilities and avoiding rechecking subproblems by using dp
+
+class Solution {
+    public String longestPalindrome(String s) {
+        int n = s.length();
+        boolean[] dp = new boolean[n];
+        dp[0] = true;
+        int start = 0;
+        int end = 0;
+        for (int i = 1; i < n; i++) {
+              boolean diagUp=false;
+            for (int j = i; j >= 0; j--) {
+                char iChar = s.charAt(i);
+                char jChar = s.charAt(j);
+              boolean temp=dp[j];
+                if (iChar != jChar) { //if ith and jth char not equal simple false
+                    dp[j] = false;
+                } else {
+
+                    //i an djth char is euqal but need to check inner substring is palindrom or not from dp[i-1][j+1]
+                    if (i - j <= 2 || diagUp) {
+                        dp[j] = true;
+                        if (i - j > end - start) {//if curr palindrom is greater length than prev length which we found earlier
+                            start = j;
+                            end = i;
+                        }
+                    } else { 
+                        dp[j] = false;
+                    }
+
+                }
+                diagUp=temp;
+            }
+        }
+        String sub = s.substring(start, end + 1);
+        return sub;
+    }
+}
+
+
+// Time Complexity :O(2n^2)=>O(n^2)
+// Space Complexity :O(1)
+// Did this code successfully run on Leetcode :yes
+// Any problem you faced while coding this :no
+// Your code here along with comments explaining your approach:pointers approach where checking and expanding left and right
+
+class Solution {
+    int start = 0;
+    int end = 0;
+
+    public String longestPalindrome(String s) {
+        int n = s.length();
+        for (int i = 0; i < n; i++) {//O(n)
+            extendAroundCenter(s, i, i);//O(n)
+            if (i < n - 1 && s.charAt(i) == s.charAt(i + 1)) {
+                extendAroundCenter(s, i, i + 1);//O(n)
+            }
+        }
+        String sub = s.substring(start, end + 1);
+        return sub;
+    }
+
+    public void extendAroundCenter(String s, int i, int j) {
+        while (i >= 0 && j < s.length()&& s.charAt(i) == s.charAt(j)) {//O(n)
+               i--;
+                j++;
+        }
+        i++;
+        j--;
+        if (j - i > end - start) {
+            start = i;
+            end = j;
+        }
+    }
+}
